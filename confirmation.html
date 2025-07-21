@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pedido Confirmado</title>
+    <link rel="stylesheet" href="css/style-conf.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="imagens/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="imagens/favicon.ico" type="image/x-icon" />
+	<title>Solicitação Confirmada</title>
+  </head>
+  <body>
+    <header>
+      <h1>Cafélier</h1>
+    </header>
+    <main>
+      <div>
+        <h1>🎉 Solicitação Confirmada!</h1>
+        <p>
+          <!-- Mensagem de confirmação inicial -->
+          Sua solicitação foi confirmada. O pedido será enviado após a
+          confirmação do pagamento.
+        </p>
+        <div class="container">
+          <h1>Pague com Pix!</h1>
+          <p>Escaneie o QR Code abaixo para realizar o pagamento:</p>
+
+          <img
+            src="https://gerarqrcodepix.com.br/api/v1?nome=Fulano Tal&cidade=Sao Paulo&chave=suachave@email.com&valor=10.50&saida=qr&tamanho=250"
+            alt="QR Code Pix"
+            width="200"
+            height="200"
+          />
+
+          <p>
+            Ou utilize a opção "Pix Copia e Cola" no seu aplicativo bancário.
+          </p>
+        </div>
+        <p>
+          Obrigado pela sua compra na Cafélier! Seu pedido foi recebido e está
+          sendo processado.
+        </p>
+        <p>Você receberá um e-mail de confirmação em breve.</p>
+
+        <div class="confirmation">
+          <h3>Detalhes do Pedido</h3>
+          <p>
+            <strong>Número do Pedido:</strong>
+            <span id="order-id">#PENDING</span>
+          </p>
+          <p><strong>Nome:</strong> <span id="customer-name"></span></p>
+          <p><strong>Email:</strong> <span id="customer-email"></span></p>
+          <p>
+            <strong>Endereço de Entrega:</strong>
+            <span id="delivery-address"></span>
+          </p>
+
+          <h4>Itens Comprados:</h4>
+          <ul id="confirmed-order-items"></ul>
+          <p class="total-price">
+            Total Pago: <span id="order-summary-grand-total">R$ 0,00</span>
+          </p>
+        </div>
+
+        <a href="index.html" class="button">Voltar para a Loja</a>
+      </div>
+    </main>
+    <footer>
+      <img src="imagens/logo-invertido.png" class="img-footer" />
+      <hr />
+      <div class="container-footer">
+        <div class="footer-div">
+          <h3>Institucional</h3>
+          Sobre nós <br />
+          Nossa curadoria <br />
+          Origens dos Cafés <br />
+          Blog & Dicas <br />
+          Trabalhe Conosco
+        </div>
+        <div class="footer-div">
+          <h3>Ajuda</h3>
+          Fale Conosco <br />
+          Perguntas Frequentes <br />
+          Trocas & Devoluções <br />
+          Política de Privacidade <br />
+          Termos de Uso
+        </div>
+        <div class="footer-div">
+          <h3>Contato</h3>
+          Cafélier Ltda <br />
+          CNPJ: 12.345.678/0001-99 <br />
+          Rua dos Aromas, 158 - Sala 3<br />
+          (11)99999-9999 <br />
+          contato@cafelier.com.br
+        </div>
+        <div class="footer-div">
+          <h3>Formas de pagamento</h3>
+          <ul class="ul-footer">
+            <li id="li1">Visa</li>
+            <li class="li-footer">Mastercard</li>
+            <li class="li-footer">Elo</li>
+            <li class="li-footer">Pix</li>
+            <li class="li-footer">Boleto</li>
+            <li class="li-footer">PayPal</li>
+          </ul>
+
+          <h3>Segurança</h3>
+          Site 100% seguro com criptografia SSL <br />
+          Certificado Digital
+        </div>
+      </div>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Função auxiliar para formatar preço
+        const formatPrice = (price) =>
+          `R$ ${price.toFixed(2).replace(".", ",")}`;
+
+        document.getElementById("order-id").textContent =
+          urlParams.get("orderId") || "#N/A";
+        document.getElementById("customer-name").textContent =
+          urlParams.get("name") || "Não informado";
+        document.getElementById("customer-email").textContent =
+          urlParams.get("email") || "Não informado";
+        document.getElementById("delivery-address").textContent =
+          urlParams.get("address") || "Não informado";
+
+        const itemsString = urlParams.get("items");
+        const itemsContainer = document.getElementById("confirmed-order-items");
+
+        if (itemsString) {
+          try {
+            const items = JSON.parse(decodeURIComponent(itemsString));
+            items.forEach((item) => {
+              const li = document.createElement("li");
+              li.textContent = `${item.name} (x${
+                item.quantity
+              }) - ${formatPrice(item.price * item.quantity)}`;
+              itemsContainer.appendChild(li);
+            });
+          } catch (e) {
+            console.error("Erro ao parsear itens do pedido:", e);
+            itemsContainer.innerHTML =
+              "<li>Não foi possível carregar os itens do pedido.</li>";
+          }
+        } else {
+          itemsContainer.innerHTML =
+            "<li>Nenhum item encontrado no pedido.</li>";
+        }
+        // --- Puxar o valor total final (com frete) da URL ---
+        const grandTotalFromUrl = urlParams.get("grandTotal");
+        const orderSummaryGrandTotalElement = document.getElementById(
+          "order-summary-grand-total"
+        );
+        const qrCodeImage = document.querySelector(".container img");
+
+        if (grandTotalFromUrl) {
+          orderSummaryGrandTotalElement.textContent = formatPrice(
+            parseFloat(grandTotalFromUrl)
+          );
+
+          // Atualizar o QR Code com o valor total final
+          if (qrCodeImage) {
+            const currentSrc = qrCodeImage.src;
+            const newValorParam = `valor=${parseFloat(
+              grandTotalFromUrl
+            ).toFixed(2)}`;
+
+            // Usar regex para substituir o valor no src do QR Code
+            const updatedSrc = currentSrc.replace(
+              /valor=[\d.]+/g,
+              newValorParam
+            );
+            qrCodeImage.src = updatedSrc;
+          }
+        } else {
+          orderSummaryGrandTotalElement.textContent = "R$ 0,00"; // Fallback
+          console.warn("Valor total final (grandTotal) não encontrado na URL.");
+        }
+      });
+    </script>
+  </body>
+</html>

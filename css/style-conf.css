@@ -1,0 +1,116 @@
+:root {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Quicksand", sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+header {
+  background-color: #ffffff;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+main {
+  flex-grow: 1;
+  margin-bottom: 3rem;
+}
+
+main h2,
+main h3 {
+  text-align: center;
+  color: #444444;
+  margin-bottom: 1.25rem;
+  font-size: 2em;
+}
+
+.button {
+  background-color: #323232;
+  color: white;
+  padding: 0.625rem 0.9375rem;
+  border: none;
+  border-radius: 0.3125rem;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #6e6d6d;
+}
+
+.button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+footer {
+  background-color: #4c4c4c;
+  color: #fff;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.img-footer {
+  margin-left: 2rem;
+  width: 10%;
+}
+
+hr {
+  color: #fff;
+  width: 90%;
+}
+
+.container-footer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.footer-div h3 {
+  margin-top: 0;
+  margin-bottom: 0.3rem;
+  font-size: 1.1em;
+  color: #fff;
+}
+
+.ul-footer {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: flex-start;
+}
+
+#li1 {
+  font-size: small;
+}
+.li-footer {
+  font-size: small;
+  color: #fff;
+  margin-left: 0.1rem;
+  margin-right: 0.1rem;
+  white-space: nowrap;
+}
+
+.ul-footer li:not(:last-child)::after {
+  content: "• ";
+  color: #fff;
+  margin-left: 0.2rem;
+}
