@@ -1,7 +1,12 @@
-import { mockProducts } from "./productsData.js";
+import { mockProducts } from "./productsData.js"; // --- 3. Lógica de Negócio ---
+const formatPrice = (price) => {
+  const formattedPrice = `R$ ${price.toFixed(2).replace(".", ",")}`;
+  return `<strong>${formattedPrice}</strong>`;
+};
+
 const API_BASE_URL = window.API_BASE_URL;
 document.addEventListener("DOMContentLoaded", () => {
-  let cart = []; // Armazena itens do carrinho
+  let cart = JSON.parse(localStorage.getItem("cart")) || []; // Carrega do localStorage
 
   // --- 2. DOM ---
   const productListContainer = document.getElementById("product-list");
@@ -51,6 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- 3. Lógica de Negócio ---
   const formatPrice = (price) => `R$ ${price.toFixed(2).replace(".", ",")}`;
 
+  // Função para salvar carrinho no localStorage
+  function saveCart() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
   function showCartMessage(productName) {
     cartMessage.innerHTML = `<img src="imagens/cart-icon.png" alt="Carrinho" class="cart-animation-icon"> "${productName}" adicionado!`;
     cartMessage.classList.add("show");
@@ -77,9 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     <p class="category">Categoria: ${product.category}</p>
                     <p class="description">${product.description}</p> 
-                    <p class="price" style="font-weight:bold;">${formatPrice(
-                      product.price
-                    )}</p>
+                    <p class="price">${formatPrice(product.price)}</p>
                     <button class="add-to-cart-btn button" data-product-id="${
                       product.id
                     }">
@@ -104,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       cart.push({ ...product, quantity: 1 });
     }
+    saveCart(); // Salvar no localStorage
     renderCart();
     showCartMessage(product.name);
 
@@ -118,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const item = cart.find((item) => item.id === productId);
     if (item) {
       item.quantity++;
+      saveCart(); // Salvar no localStorage
       renderCart();
       updateOrderSummary(); // Atualizar o resumo do pedido se estiver visível
     }
@@ -127,6 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const item = cart.find((item) => item.id === productId);
     if (item && item.quantity > 1) {
       item.quantity--;
+      saveCart(); // Salvar no localStorage
       renderCart();
       updateOrderSummary(); // Atualizar o resumo do pedido se estiver visível
     } else if (item && item.quantity === 1) {
@@ -140,6 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (itemIndex > -1) {
       const removedItem = cart[itemIndex];
       cart.splice(itemIndex, 1);
+      saveCart(); // Salvar no localStorage
       renderCart();
       updateOrderSummary(); // Atualizar o resumo do pedido se estiver visível
 
@@ -229,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
       floatingCartCount.classList.remove("hidden");
     }
 
-    cartTotalElement.textContent = formatPrice(total);
+    cartTotalElement.innerHTML = formatPrice(total);
   }
 
   // --- CEP na ViaCEP ---
@@ -302,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
       productsTotal += item.price * item.quantity;
     });
 
-    orderSummaryTotal.textContent = formatPrice(productsTotal); // Total dos produtos
+    orderSummaryTotal.innerHTML = formatPrice(productsTotal); // Total dos produtos
 
     // Se o CEP já estiver preenchido E o cartTotal for maior que 0, tenta calcular o frete
     const cep = cepInput.value;
@@ -311,15 +323,15 @@ document.addEventListener("DOMContentLoaded", () => {
         cep,
         productsTotal
       );
-      shippingCostElement.textContent = formatPrice(currentShippingCost);
+      shippingCostElement.innerHTML = formatPrice(currentShippingCost);
     } else if (productsTotal === 0) {
-      shippingCostElement.textContent = formatPrice(0); // Frete 0 se não houver produtos
+      shippingCostElement.innerHTML = formatPrice(0); // Frete 0 se não houver produtos
     } else {
       shippingCostElement.textContent = "Aguardando CEP...";
     }
 
     const grandTotal = productsTotal + currentShippingCost;
-    orderSummaryGrandTotal.textContent = formatPrice(grandTotal); // Total Final (produtos + frete)
+    orderSummaryGrandTotal.innerHTML = formatPrice(grandTotal); // Total Final (produtos + frete)
   }
 
   // Gerar as categorias dinamicamente
@@ -533,7 +545,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cityInput.value = "";
       stateInput.value = "";
       shippingCostElement.textContent = "Inválido"; // Limpa o frete se o CEP for inválido
-      orderSummaryGrandTotal.textContent = formatPrice(
+      orderSummaryGrandTotal.innerHTML = formatPrice(
         cart.reduce((acc, item) => acc + item.price * item.quantity, 0)
       ); // Reseta o total final
       alert("CEP não encontrado ou inválido. Por favor, verifique.");
@@ -634,6 +646,7 @@ document.addEventListener("DOMContentLoaded", () => {
       )}`;
 
       cart = [];
+      saveCart(); // Salvar carrinho vazio no localStorage
       renderCart();
       checkoutForm.reset();
 

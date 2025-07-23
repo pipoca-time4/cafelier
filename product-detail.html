@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="imagens/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="imagens/favicon.ico" type="image/x-icon" />
+    <title>Detalhes do Produto - Cafélier (Loja Mokada)</title>
+  </head>
+  <body>
+    <header>
+      <img src="imagens/logo.png" style="width: 200px" />
+      <nav
+        style="
+          margin-top: 1rem;
+          display: flex;
+          gap: 1rem;
+          justify-content: center;
+        "
+      >
+        <button
+          id="back-btn"
+          class="nav-button"
+          style="
+            background: none;
+            border: none;
+            color: #444;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: underline;
+          "
+        >
+          ← Voltar
+        </button>
+        <a
+          href="index.html"
+          style="text-decoration: none; color: #444; font-weight: bold"
+          >🏠 Página Inicial</a
+        >
+        <a
+          href="cart.html"
+          style="text-decoration: none; color: #444; font-weight: bold"
+          >🛒 Carrinho</a
+        >
+      </nav>
+    </header>
+
+    <div id="cart-message" class="cart-message"></div>
+
+    <div id="floating-cart" class="floating-cart">
+      <img src="imagens/cart-icon.png" alt="Carrinho" class="cart-icon" />
+      <span id="floating-cart-count" class="cart-count">0</span>
+    </div>
+
+    <main>
+      <div class="product-detail-container">
+        <div class="product-detail-loading" id="loading-message">
+          <p>Carregando produto...</p>
+        </div>
+
+        <div
+          class="product-detail-content"
+          id="product-detail-content"
+          style="display: none"
+        >
+          <div class="product-detail-image">
+            <img id="product-image" src="" alt="" class="detail-image" />
+          </div>
+
+          <div class="product-detail-info">
+            <h1 id="product-name" class="product-detail-title"></h1>
+            <p id="product-category" class="product-detail-category"></p>
+            <p id="product-description" class="product-detail-description"></p>
+
+            <div class="product-detail-price">
+              <span id="product-price" class="detail-price"></span>
+            </div>
+
+            <div class="product-detail-actions">
+              <div class="quantity-selector">
+                <label for="quantity-input">Quantidade:</label>
+                <div class="quantity-controls">
+                  <button id="decrease-quantity" class="quantity-btn">-</button>
+                  <input
+                    type="number"
+                    id="quantity-input"
+                    value="1"
+                    min="1"
+                    max="99"
+                    class="quantity-input"
+                  />
+                  <button id="increase-quantity" class="quantity-btn">+</button>
+                </div>
+              </div>
+
+              <button id="add-to-cart-btn" class="button add-to-cart-detail">
+                Adicionar ao Carrinho
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="product-not-found"
+          id="product-not-found"
+          style="display: none"
+        >
+          <h2>Produto não encontrado</h2>
+          <p>O produto que você está procurando não foi encontrado.</p>
+          <a href="index.html" class="button">Voltar às Compras</a>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <img src="imagens/logo-invertido.png" class="img-footer" />
+      <hr />
+      <div class="container-footer">
+        <div class="footer-div">
+          <h3>Institucional</h3>
+          Sobre nós <br />
+          Nossa curadoria <br />
+          Origens dos Cafés <br />
+          Blog & Dicas <br />
+          Trabalhe Conosco
+        </div>
+        <div class="footer-div">
+          <h3>Ajuda</h3>
+          Fale Conosco <br />
+          Perguntas Frequentes <br />
+          Trocas & Devoluções <br />
+          Política de Privacidade <br />
+          Termos de Uso
+        </div>
+
+        <div class="footer-div">
+          <h3>Contato</h3>
+          Cafélier Ltda <br />
+          CNPJ: 12.345.678/0001-99 <br />
+          Rua dos Aromas, 158 - Sala 3<br />
+          (11)99999-9999 <br />
+          contato@cafelier.com.br
+        </div>
+
+        <div class="footer-div">
+          <h3>Formas de pagamento</h3>
+          <ul class="ul-footer">
+            <li id="li1">Visa</li>
+            <li class="li-footer">Mastercard</li>
+            <li class="li-footer">Elo</li>
+            <li class="li-footer">Pix</li>
+            <li class="li-footer">Boleto</li>
+            <li class="li-footer">PayPal</li>
+          </ul>
+          <h3>Segurança</h3>
+          Site 100% seguro com criptografia SSL <br />
+          Certificado Digital
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/productsData.js" type="module"></script>
+    <script src="js/product-detail.js" type="module"></script>
+  </body>
+</html>

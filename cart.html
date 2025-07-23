@@ -12,28 +12,63 @@
     />
     <link rel="icon" href="imagens/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="imagens/favicon.ico" type="image/x-icon" />
-    <title>Cafélier (Loja Mokada)</title>
+    <title>Seu Carrinho - Cafélier (Loja Mokada)</title>
   </head>
   <body>
     <header>
       <img src="imagens/logo.png" style="width: 200px" />
+      <nav
+        style="
+          margin-top: 1rem;
+          display: flex;
+          gap: 1rem;
+          justify-content: center;
+        "
+      >
+        <button
+          id="back-btn"
+          class="nav-button"
+          style="
+            background: none;
+            border: none;
+            color: #444;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: underline;
+          "
+        >
+          ← Voltar
+        </button>
+        <a
+          href="index.html"
+          style="text-decoration: none; color: #444; font-weight: bold"
+          >🏠 Página Inicial</a
+        >
+      </nav>
     </header>
 
     <div id="cart-message" class="cart-message"></div>
 
-    <div id="floating-cart" class="floating-cart">
-      <img src="imagens/cart-icon.png" alt="Carrinho" class="cart-icon" />
-      <span id="floating-cart-count" class="cart-count">0</span>
-    </div>
-
-    <nav>
-      <ul class="nav-ul" id="category-list">
-        <li data-category="Todos"><u>Todos</u></li>
-      </ul>
-    </nav>
     <main>
-      <h3>Cafés que falam com seu gosto</h3>
-      <div id="product-list" class="product-grid"></div>
+      <h2>Seu Carrinho</h2>
+
+      <section class="cart-section">
+        <h3>Itens no Carrinho (<span id="cart-item-count">0</span> itens)</h3>
+        <div id="cart-items" class="cart-items">
+          <p class="empty-cart-message">Seu carrinho está vazio.</p>
+        </div>
+        <div class="cart-summary">
+          <p>Total: <span id="cart-total" class="total-price">R$ 0,00</span></p>
+          <div class="cart-actions">
+            <button id="clear-cart-btn" class="button secondary">
+              Limpar Carrinho
+            </button>
+            <button id="proceed-to-checkout-btn" class="button" disabled>
+              Finalizar Compra
+            </button>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer>
@@ -82,8 +117,8 @@
         </div>
       </div>
     </footer>
+
     <script src="js/config.js"></script>
-    <script src="js/productsData.js" type="module"></script>
-    <script src="js/index.js" type="module"></script>
+    <script src="js/cart.js" type="module"></script>
   </body>
 </html>

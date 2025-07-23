@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="imagens/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="imagens/favicon.ico" type="image/x-icon" />
+    <title>Finalizar Compra - Cafélier (Loja Mokada)</title>
+  </head>
+  <body>
+    <header>
+      <img src="imagens/logo.png" style="width: 200px" />
+      <nav
+        style="
+          margin-top: 1rem;
+          display: flex;
+          gap: 1rem;
+          justify-content: center;
+        "
+      >
+        <button
+          id="back-btn"
+          class="nav-button"
+          style="
+            background: none;
+            border: none;
+            color: #444;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: underline;
+          "
+        >
+          ← Voltar
+        </button>
+        <a
+          href="cart.html"
+          style="text-decoration: none; color: #444; font-weight: bold"
+          >🛒 Carrinho</a
+        >
+        <a
+          href="index.html"
+          style="text-decoration: none; color: #444; font-weight: bold"
+          >🏠 Página Inicial</a
+        >
+      </nav>
+    </header>
+
+    <main>
+      <section class="checkout-section">
+        <h2>Finalizar Compra</h2>
+
+        <div class="checkout-container">
+          <div class="checkout-form-section">
+            <h3>Dados Pessoais</h3>
+            <form id="checkout-form" class="checkout-form">
+              <div class="form-group">
+                <label for="name">Nome Completo:</label>
+                <input type="text" id="name" name="name" required />
+                <span class="error-message" id="name-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required />
+                <span class="error-message" id="email-error"></span>
+              </div>
+
+              <h3>Endereço de Entrega</h3>
+              <div class="form-group">
+                <label for="zipcode">CEP:</label>
+                <input
+                  type="text"
+                  id="zipcode"
+                  name="zipcode"
+                  pattern="\d{5}-?\d{3}"
+                  placeholder="Ex: 12345-678"
+                  required
+                />
+                <span class="error-message" id="zipcode-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="address">Endereço:</label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  required
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label for="neighborhood">Bairro:</label>
+                <input
+                  type="text"
+                  id="neighborhood"
+                  name="neighborhood"
+                  required
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label for="city">Cidade:</label>
+                <input type="text" id="city" name="city" required readonly />
+              </div>
+              <div class="form-group">
+                <label for="state">Estado:</label>
+                <input
+                  type="text"
+                  id="state"
+                  name="state"
+                  required
+                  maxlength="2"
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label for="number">Número:</label>
+                <input type="text" id="number" name="number" required />
+                <span class="error-message" id="number-error"></span>
+              </div>
+              <div class="form-group">
+                <label for="complement">Complemento:</label>
+                <input type="text" id="complement" name="complement" />
+              </div>
+
+              <button type="submit" id="confirm-purchase-btn" class="button">
+                Confirmar Compra
+              </button>
+            </form>
+          </div>
+
+          <div class="order-summary-section">
+            <div class="order-summary-details">
+              <h3>Resumo do Pedido</h3>
+              <ul id="order-items"></ul>
+              <div class="summary-line">
+                <strong>Total Produtos:</strong>
+                <span id="order-summary-total">R$ 0,00</span>
+              </div>
+              <div class="summary-line">
+                <strong>Frete:</strong>
+                <span id="shipping-cost">Calculando...</span>
+              </div>
+              <div class="summary-line total-final">
+                <strong>Total Final:</strong>
+                <span id="order-summary-grand-total">R$ 0,00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="purchase-confirmation-message"
+          class="purchase-confirmation-message"
+        ></div>
+      </section>
+    </main>
+
+    <footer>
+      <img src="imagens/logo-invertido.png" class="img-footer" />
+      <hr />
+      <div class="container-footer">
+        <div class="footer-div">
+          <h3>Institucional</h3>
+          Sobre nós <br />
+          Nossa curadoria <br />
+          Origens dos Cafés <br />
+          Blog & Dicas <br />
+          Trabalhe Conosco
+        </div>
+        <div class="footer-div">
+          <h3>Ajuda</h3>
+          Fale Conosco <br />
+          Perguntas Frequentes <br />
+          Trocas & Devoluções <br />
+          Política de Privacidade <br />
+          Termos de Uso
+        </div>
+
+        <div class="footer-div">
+          <h3>Contato</h3>
+          Cafélier Ltda <br />
+          CNPJ: 12.345.678/0001-99 <br />
+          Rua dos Aromas, 158 - Sala 3<br />
+          (11)99999-9999 <br />
+          contato@cafelier.com.br
+        </div>
+
+        <div class="footer-div">
+          <h3>Formas de pagamento</h3>
+          <ul class="ul-footer">
+            <li id="li1">Visa</li>
+            <li class="li-footer">Mastercard</li>
+            <li class="li-footer">Elo</li>
+            <li class="li-footer">Pix</li>
+            <li class="li-footer">Boleto</li>
+            <li class="li-footer">PayPal</li>
+          </ul>
+          <h3>Segurança</h3>
+          Site 100% seguro com criptografia SSL <br />
+          Certificado Digital
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/checkout.js" type="module"></script>
+  </body>
+</html>

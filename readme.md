@@ -31,12 +31,15 @@ Tecnologias Utilizadas: Javascript e Node.JS.
 # Estrutura do projeto
 
 ```
-│   .env
+│    .env
 │   .gitignore
+│   cart.html
+│   checkout.html
 │   confirmation.html
 │   index.html
 │   package-lock.json
 │   package.json
+│   product-detail.html
 │   readme.md
 │   render.yaml
 │
@@ -70,9 +73,14 @@ Tecnologias Utilizadas: Javascript e Node.JS.
 │       logo.png
 │
 ├───js
+│       cart.js
+│       checkout.js
 │       config.js
+│       index.js
+│       product-detail.js
 │       productsData.js
 │       script.js
+│       utils.js
 │
 └───server
         package.json
