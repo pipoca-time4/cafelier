@@ -43,14 +43,17 @@ document.addEventListener("DOMContentLoaded", () => {
   // Função para criar card do produto
   function createProductCard(product) {
     // Criar uma descrição resumida (primeiras 60 caracteres)
-    const shortDescription = product.description.length > 60 
-      ? product.description.substring(0, 60) + "..." 
-      : product.description;
+    const shortDescription =
+      product.description.length > 60
+        ? product.description.substring(0, 60) + "..."
+        : product.description;
 
     const card = document.createElement("div");
     card.classList.add("product-card");
     card.innerHTML = `
-      <img src="${product.imageUrl}" alt="${product.name}" class="product-image">
+      <img src="${product.imageUrl}" alt="${
+      product.name
+    }" class="product-image">
       <div class="product-info">
         <h3 class="product-name">${product.name}</h3>
         <p class="product-description">${shortDescription}</p>
@@ -66,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const viewDetailsBtn = card.querySelector(".view-details-btn");
     const addToCartBtn = card.querySelector(".add-to-cart-btn");
-    
+
     viewDetailsBtn.addEventListener("click", () => {
       window.location.href = `product-detail.html?id=${product.id}`;
     });
@@ -81,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Função para adicionar produto ao carrinho
   function addToCart(product) {
     const existingItem = cart.find((item) => item.id === product.id);
-    
+
     if (existingItem) {
       existingItem.quantity += 1;
       showCartMessage(`Quantidade de ${product.name} aumentada!`);
@@ -89,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cart.push({ ...product, quantity: 1 });
       showCartMessage(`${product.name} adicionado ao carrinho!`);
     }
-    
+
     saveCart();
     updateFloatingCartCount();
   }
@@ -118,7 +121,9 @@ document.addEventListener("DOMContentLoaded", () => {
       categoryListUl.appendChild(listItem);
     });
 
-    const allCategoryItem = categoryListUl.querySelector('[data-category="Todos"]');
+    const allCategoryItem = categoryListUl.querySelector(
+      '[data-category="Todos"]'
+    );
     if (allCategoryItem) {
       allCategoryItem.classList.add("active");
     }
@@ -153,6 +158,22 @@ document.addEventListener("DOMContentLoaded", () => {
     filterProductsByCategory("Todos");
     console.log("Produtos exibidos a partir do mockProducts.");
   }
+
+  // Função para recarregar carrinho do localStorage
+  function reloadCart() {
+    cart = JSON.parse(localStorage.getItem("cart")) || [];
+    updateFloatingCartCount();
+  }
+
+  // Event listener para recarregar carrinho quando a página ganhar foco
+  window.addEventListener("focus", () => {
+    reloadCart();
+  });
+
+  // Event listener para quando a página é mostrada (incluindo voltar do histórico)
+  window.addEventListener("pageshow", (event) => {
+    reloadCart();
+  });
 
   // Event listener para o carrinho flutuante
   floatingCart.addEventListener("click", () => {
